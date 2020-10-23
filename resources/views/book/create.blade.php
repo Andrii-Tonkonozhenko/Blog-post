@@ -1,9 +1,9 @@
 @extends('layout')
 
-@section('title')Отзывы@endsection
+@section('title') Add Book @endsection
 
 @section('content')
-    <h1>Add Blog Post</h1>
+    <h1>Add Book</h1>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -15,10 +15,10 @@
         </div>
     @endif
 
-    <form method="post" action="/blog_post/check">
+    <form method="post" action="{{ route('book.store') }}">
         @csrf
         <input type="text" name="title" id="title" placeholder="Write your title" class="form-control"><br>
-        <textarea name="message" id="message" class="form-control" placeholder="Write your message"></textarea><br>
+        <textarea name="content" id="content" class="form-control" placeholder="Write your message"></textarea><br>
         <button type="submit" class="btn btn-success">To send</button>
     </form>
     <br>

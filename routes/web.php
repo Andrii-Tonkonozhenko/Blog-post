@@ -13,7 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'MainController@home');
-Route::get('/posts', 'MainController@posts')->name('posts');
-Route::get('/blog_post', 'MainController@blog_post');
-Route::post('/blog_post/check', 'MainController@blog_post_check');
+Route::get('/', 'HomeController@home');
+
+Route::resource('book', 'BookController');
+
+//Route::get('/book', 'LibraryController@book')->name('book');
+//Route::get('/create', 'LibraryController@create')->name('create');
+//Route::get('/show/{id}', 'LibraryController@show')->name('show');
+//Route::get('/edit/{id}', 'LibraryController@edit')->name('edit');
+//Route::get('/delete/{id}', 'LibraryController@destroy')->name('destroy');
+//
+//Route::post('/book/check', 'LibraryController@library_check');
+//Route::put('/book/update/{id}', 'LibraryController@update')->name('update');
+
+
