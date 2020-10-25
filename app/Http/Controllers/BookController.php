@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
 use App\Book;
 use Illuminate\Http\Request;
 
@@ -9,12 +10,12 @@ class BookController extends Controller
 {
     public function index()
     {
-        return view('book', ['books' => Book::all()]);
+        return view('book.admin', ['books' => Book::all()]);
     }
 
     public function create()
     {
-        return view('book.create');
+        return view('book.create', ['authors' => Author::all()]);
     }
 
     public function show($id)
@@ -24,7 +25,7 @@ class BookController extends Controller
 
     public function edit($id)
     {
-        return view('book.edit', ['book'=> Book::findOrFail($id)]);
+        return view('book.edit', ['book'=> Book::findOrFail($id), 'authors' => Author::all()]);
     }
 
     public function update(Request $request, $id)
@@ -37,10 +38,11 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $book->title = $request->get('title');
         $book->content = $request->get('content');
+        $book->author_id = $request->get('author_id');
 
         $book->save();
 
-        return redirect()->route('book');
+        return redirect('/');
     }
 
     public function destroy($id)
@@ -48,7 +50,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $book->delete();
 
-        return redirect()->route('book')->with('success', 'Book deleted');
+        return redirect('/')->with('success', 'Book deleted');
     }
 
     public function store(Request $request)
@@ -58,12 +60,16 @@ class BookController extends Controller
             'content' => 'required|min:10|max:500'
         ]);
 
+        $data = $request->all();
         $book = new Book();
         $book->title = $request->get('title');
         $book->content = $request->get('content');
+        $book->author_id = $request->get('author_id');
 
         $book->save();
 
-        return redirect()->route('book')->with('success', 'Book was added');
+        return redirect('/')->with('success', 'Book was added');
     }
+
+
 }

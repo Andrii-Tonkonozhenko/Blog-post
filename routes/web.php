@@ -15,15 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@home');
 
+Route::prefix('admin')->group(function () {
+    Route::resource('book', 'BookController');
+    Route::resource('author', 'AuthorController');
+});
+
+Route::resource('author', 'AuthorController');
+
 Route::resource('book', 'BookController');
 
-//Route::get('/book', 'LibraryController@book')->name('book');
-//Route::get('/create', 'LibraryController@create')->name('create');
-//Route::get('/show/{id}', 'LibraryController@show')->name('show');
-//Route::get('/edit/{id}', 'LibraryController@edit')->name('edit');
-//Route::get('/delete/{id}', 'LibraryController@destroy')->name('destroy');
-//
-//Route::post('/book/check', 'LibraryController@library_check');
-//Route::put('/book/update/{id}', 'LibraryController@update')->name('update');
+
 
 
