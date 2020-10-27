@@ -20,9 +20,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('author', 'AuthorController');
 });
 
-Route::resource('author', 'AuthorController');
-
-Route::resource('book', 'BookController');
 
 
 

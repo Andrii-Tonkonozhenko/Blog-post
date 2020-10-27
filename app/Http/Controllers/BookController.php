@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\Book;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -18,49 +20,38 @@ class BookController extends Controller
         return view('book.create', ['authors' => Author::all()]);
     }
 
-    public function show($id)
+    public function show(Book $book)
     {
-        return view('book.show', ['book'=> Book::findOrFail($id)]);
+        return view('book.show', compact('book'));
     }
 
-    public function edit($id)
+    public function edit(Book $book)
     {
-        return view('book.edit', ['book'=> Book::findOrFail($id), 'authors' => Author::all()]);
+        return view('book.edit', ['book'=> $book, 'authors' => Author::all()]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        $valid = $request->validate([
-            'title' => 'required|min:2|max:15',
-            'content' => 'required|min:10|max:500'
-        ]);
+        $valid = $request->validated();
 
-        $book = Book::findOrFail($id);
-        $book->title = $request->get('title');
-        $book->content = $request->get('content');
-        $book->author_id = $request->get('author_id');
-
+        $book->update(request()->all());
         $book->save();
 
         return redirect('/');
     }
 
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        $book = Book::findOrFail($id);
         $book->delete();
 
         return redirect('/')->with('success', 'Book deleted');
     }
 
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        $valid = $request->validate([
-            'title' => 'required|min:2|max:15',
-            'content' => 'required|min:10|max:500'
-        ]);
 
-        $data = $request->all();
+        $valid = $request->validated();
+
         $book = new Book();
         $book->title = $request->get('title');
         $book->content = $request->get('content');
@@ -70,6 +61,4 @@ class BookController extends Controller
 
         return redirect('/')->with('success', 'Book was added');
     }
-
-
 }
