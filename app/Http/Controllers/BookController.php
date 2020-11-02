@@ -32,8 +32,6 @@ class BookController extends Controller
 
     public function update(UpdateBookRequest $request, Book $book)
     {
-        $valid = $request->validated();
-
         $book->update(request()->all());
         $book->save();
 
@@ -49,15 +47,7 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request)
     {
-
-        $valid = $request->validated();
-
-        $book = new Book();
-        $book->title = $request->get('title');
-        $book->content = $request->get('content');
-        $book->author_id = $request->get('author_id');
-
-        $book->save();
+        Book::create($request->all());
 
         return redirect('/')->with('success', 'Book was added');
     }

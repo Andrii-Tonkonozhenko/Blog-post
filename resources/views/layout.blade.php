@@ -15,7 +15,7 @@
         <a class="p-2 text-white" href="/">Home</a>
         <a class="p-2 text-white" href={{ route('author.index') }}>Author</a>
     </nav>
-    <a class="btn btn-warning" href="{{ route('book.create') }}">Add book</a>
+    <a class="btn btn-warning" href="{{ route('user.create') }}">Register</a>
 </div>
 <div class="container mt-5">
     @yield('content')

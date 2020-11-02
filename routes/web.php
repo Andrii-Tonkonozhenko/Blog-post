@@ -18,6 +18,7 @@ Route::get('/', 'HomeController@home');
 Route::prefix('admin')->group(function () {
     Route::resource('book', 'BookController');
     Route::resource('author', 'AuthorController');
+    Route::resource('user', 'UserController');
 });
 
 
